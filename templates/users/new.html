@@ -1,0 +1,17 @@
+<form action="/users" method="post">
+    <h1>New User</h1>
+    <div>
+      <label>
+        Nickname
+        <input type="text" name="nickname" value="{{ user.nickname }}">
+      </label>
+      <label>
+        Email
+        <input type="email" required name="email" value="{{ user.email }}">
+      </label>
+      {% if errors %}
+        <div>{{ errors.name }}</div>
+      {% endif %}
+    </div>
+    <input type="submit" value="Supmit">
+</form>

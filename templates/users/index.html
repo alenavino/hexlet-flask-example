@@ -1,0 +1,37 @@
+<body>
+    <h1>Users</h1>
+    <form action="{{ url_for('delete_session') }}" method="post">
+        <input type="submit" value="Logout">
+    </form>
+    {% if messages %}
+        <div class=flashes>
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+        </div>
+    {% endif %}
+    {% if current_user %}
+    <h1>Hello, {{ current_user['nickname'] }}!</h1>
+    {% endif %}
+    <form action="/users" method="get">
+        <input type="search" name="term" value="{{ search }}" />
+        <input type="submit" value="Search" />
+      </form>
+    <table>
+        {% for id, user in users.items() %}
+        <tr>
+            <td>
+                <a href="{{ url_for('get_user', id=id) }}">{{ user["nickname"] }}</a>
+            </td>
+            <td>
+                <a href="{{ url_for('user_update', id=id) }}">Update</a>
+            </td>
+            <td>
+                <form action="{{ url_for('delete_user', id=id) }}" method="post" onsubmit="return confirm('Are you sure you want to delete user? This action cannot be undone.')">
+                    <input type="submit" value="Delete">
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
